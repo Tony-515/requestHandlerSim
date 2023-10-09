@@ -5,6 +5,62 @@
 </head>
 <body>
 		<h1>Pending Requests</h1>
-		<p>{{ req }}</p>
+		<div id="pending"></div>
+		<label for="intinput">Integer</label>
+		<input type="number" id="intinput" name="intinput" min="0">
+		<button id="send_int" onclick="sendInt()">Send</button><br>
+		<button id="update_log" onclick="showLog()">Update Log</button>
+		<div id="log"></div>
 </body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script>
+function showLog(){
+
+    $.ajax({
+      url: "/log",
+      type: "get",
+      success: function(response) {
+        $("#log").html(response);
+		showLog();
+      },
+      <!-- error: function(xhr) { -->
+        <!-- //Do Something to handle error -->
+      <!-- } -->
+    });
+	
+};
+<!-- setTimeout(showLog(), 100000); -->
+
+function pending(){
+
+    $.ajax({
+      url: "/prq",
+      type: "get",
+      success: function(response) {
+        $("#pending").html(response);
+		<!-- console.log(response); -->
+		pending();
+      },
+    });
+};
+showLog();
+setTimeout(function(){}, 10000);
+pending();
+<!-- clearInterval(interval); -->
+function sendInt(){
+number = document.getElementById("intinput").value
+formData = `\{\"number\" : ${number}\}`;
+console.log(formData);
+$.ajax({
+  type: "POST",
+  url: "/",
+  data: formData,
+  success: function(){},
+  dataType: "json",
+  contentType : "application/json"
+});
+};
+</script>
 </html>

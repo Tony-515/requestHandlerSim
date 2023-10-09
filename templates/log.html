@@ -1,0 +1,13 @@
+<h1>LOG: First Request and Last 100 Requests</h1>
+	<table><tr><th>ID</th><th>Number</th><th>Timestamp</th><th>Factorial</th>
+		<tr><td>{{ firstRow[0] }}</td>
+		<td>{{ firstRow[1] }}</td>
+		<td>{{ firstRow[3] }}</td>
+		<td>{{ firstRow[2] }}</td></tr><tr><td></td></tr>
+		{% for req in reqs %}
+		<tr><td>{{ req[0] }}</td>
+			<td>{{ req[1] }}</td>
+			<td>{{ req[3] }}</td>
+			<td>{{ req[2] }}</td></tr>
+		{% endfor %}
+		</table>
